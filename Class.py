@@ -50,14 +50,15 @@ class Produtos:
         self.valor_produto = valor_produto
         self.quantidade = quantidade  # Atributo da quantidade de produtos disponíveis
         self.produtos = {}  # ?Atributo para armazenar produtos (Composição)
-        self.carrinho = {}
-        self.ps5 = Playstation5
-        self.xbox_x = Xbox_Series_X
-        self.ConPS5 = Controle_Playstation5
-        self.ConX = Controle_Xbox
-        self.gui = Guitarra
-        self.vio = Violão
-        self.IP4 = IPhone14
+        self.carrinho = {}  # ?Atributo para armazenar produtos no carrinho (Composição)
+        self.cadastrarProduto(1, "Playstation 5", 5000, 10)
+        self.cadastrarProduto(2, "Xbox Series X", 4500, 10)
+        self.cadastrarProduto(3, "Controle Playstation 5", 500, 10)
+        self.cadastrarProduto(4, "Controle Xbox Series X", 450, 10)
+        self.cadastrarProduto(5, "Guitarra", 1500, 10)
+        self.cadastrarProduto(6, "Violão", 1000, 10)
+        self.cadastrarProduto(7, "IPhone 14", 10000, 10)
+
 
     def listarprodutos(self):
         for chave, valor in self.produtos.items():
@@ -82,6 +83,7 @@ class Produtos:
         self.Id_produto = Id_produto  # Atributo de identificação do produto
         self.nome_produto = nome_produto  # Atributo do nome do produto
         self.valor_produto = valor_produto  # Atributo do valor do produto
+        self.quantidade = quantidade  # Atributo da quantidade de produtos disponíveis
 
         # !Dicionário para armazenar informações dos produtos (Agregação)
         self.produtos[self.Id_produto] = [self.nome_produto, self.valor_produto, self.quantidade]
@@ -98,36 +100,3 @@ class Produtos:
         print('Carrinho:')
         for chave, valor in self.carrinho.items():
             print(f'ID: {chave} - NOME: {valor[0]} - VALOR: {valor[1]} - QUANTIDADE: {valor[2]}')
-
-class Usuario_admin(E_commerce):
-    pass
-
-class Usuario_cliente(E_commerce):
-    pass
-
-class Playstation5(Produtos):
-    pass
-
-
-class Xbox_Series_X(Produtos):
-    pass
-
-
-class Controle_Playstation5(Produtos):
-    pass
-
-
-class Controle_Xbox(Produtos):
-    pass
-
-
-class Guitarra(Produtos):
-    pass
-
-
-class Violão(Produtos):
-    pass
-
-
-class IPhone14(Produtos):
-    pass
