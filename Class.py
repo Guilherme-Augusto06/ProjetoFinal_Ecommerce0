@@ -24,21 +24,22 @@ class E_commerce:
         self.endereco = endereco # Atributo do endereço da loja
         self.cnpj = cnpj # Atributo do cnpj da loja
         self.cliente = {}  # Lista para armazenar clientes
+        self.cadastrarCliente(1, "Thiago", 123, 123, 123)
 
-    def cadastrarCliente(self, id, nome, cpf, tel):
-        self.id = id  # Atributo de identificação do cliente
-        self.nome = nome  # Atributo do nome do cliente
-        self.cpf = cpf  # Atributo do CPF do cliente
-        self.tel = tel  # Atributo do telefone do cliente
+    def login_cliente(self, id, senha):
+        if id in self.cliente and self.cliente[id][1] == senha:
+            return True
+        return False
 
+    def cadastrarCliente(self, id, nome, senha, cpf, tel):
         # !Dicionário para armazenar informações dos clientes (Agregação)
-        self.cliente[self.id] = [self.nome, self.cpf, self.tel]
+        self.cliente[id] = [nome, senha, cpf, tel]
     
 
     def listarClientes(self):
         for chave, valor in self.cliente.items():
             #!Imprime informações dos clientes (Agregação)
-            print(f'ID: {chave} - Nome: {valor[0]} - CPF: {valor[1]} - Telefone: {valor[2]}')
+             print(f'ID: {chave} - Nome: {valor[0]} - CPF: {valor[1]} - Telefone: {valor[2]}')
             
     
 # Classe Produtos
@@ -77,44 +78,32 @@ class Produtos:
     def setQuantidade(self, quantidade):
         self.quantidade = quantidade
 
-    def cadastrarProduto(self, Id_produto, nome_produto, valor_produto):
+    def cadastrarProduto(self, Id_produto, nome_produto, valor_produto, quantidade):
         self.Id_produto = Id_produto  # Atributo de identificação do produto
         self.nome_produto = nome_produto  # Atributo do nome do produto
         self.valor_produto = valor_produto  # Atributo do valor do produto
 
         # !Dicionário para armazenar informações dos produtos (Agregação)
-        self.produtos[self.Id_produto] = [self.nome_produto, self.valor_produto]
+        self.produtos[self.Id_produto] = [self.nome_produto, self.valor_produto, self.quantidade]
 
-    def adicionar_carrinho(self, idCli, reserva):
-        match reserva:
-            case 1:
-                produto = "Playstation 5"
-            case 2:
-                produto = "Xbox Series X"
-            case 3:
-                produto = "Controle Playstation 5"
-            case 4:
-                produto = "Controle Xbox"
-            case 5:
-                produto = "Guitarra"
-            case 6:
-                produto = "Violão"
-            case 7:
-                produto = "IPhone 14"
-            case _:
-                produto = "Produto não encontrado"
+    def adicionar_carrinho(self, Id_produto, nome_produto, valor_produto, quantidade):
+        self.Id_produto = Id_produto
+        self.nome_produto = nome_produto
+        self.valor_produto = valor_produto
+        self.quantidade = quantidade
+        self.carrinho[self.Id_produto] = [self.nome_produto, self.valor_produto, self.quantidade]
 
-        if idCli not in self.carrinho:
-            # Crie uma lista vazia para o cliente se ainda não existir
-            self.carrinho[idCli] = []
 
-        # Adicione o produto à lista de compras do cliente
-        self.carrinho[idCli].append(produto)
-
-    def listarcarrinho(self):
+    def listarCarrinho(self):
+        print('Carrinho:')
         for chave, valor in self.carrinho.items():
-            print(f'ID: {chave} - Produto: {valor}')
+            print(f'ID: {chave} - NOME: {valor[0]} - VALOR: {valor[1]} - QUANTIDADE: {valor[2]}')
 
+class Usuario_admin(E_commerce):
+    pass
+
+class Usuario_cliente(E_commerce):
+    pass
 
 class Playstation5(Produtos):
     pass
