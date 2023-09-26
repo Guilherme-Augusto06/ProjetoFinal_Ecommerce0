@@ -8,7 +8,6 @@ countID = 1
 countID_adm = 1
 countID_produto = 7
 
-
 def mani():
 
     try:
@@ -21,7 +20,8 @@ def mani():
             print("|4- Listar clientes              |")
             print("|5- Cadastrar administrador      |")
             print("|6- Listar administradores       |")
-            print("|7- Sair                         |")
+            print("|7- Histórico de compras/cliente |")
+            print("|8- Sair                         |")
             print("|________________________________|")
             op = int(input(">> "))
             try:
@@ -34,10 +34,10 @@ def mani():
                         global countID
                         countID += 1
                         id = countID
-                        nome = input("Nome -")
-                        senha = int(input('Insira a senha -'))
-                        cpf = int(input("CPF -"))
-                        tel = int(input("Telefone -"))
+                        nome = input("Nome >> ")
+                        senha = int(input('Insira a senha >> '))
+                        cpf = int(input("CPF >> "))
+                        tel = int(input("Telefone >> "))
                         Loja.cadastrarCliente(id, nome, senha, cpf, tel)
                         print('Cliente cadastrado com sucesso')
                         os.system('pause')
@@ -51,9 +51,9 @@ def mani():
                         global countID_produto
                         countID_produto += 1
                         id_produto = countID_produto
-                        nome_produto = input("Nome -")
-                        valor_produto = float(input("Valor -"))
-                        quantidade = int(input("Quantidade -"))
+                        nome_produto = input("Nome >> ")
+                        valor_produto = float(input("Valor >> "))
+                        quantidade = int(input("Quantidade >> "))
 
                         produtos.cadastrarProduto(id_produto, nome_produto, valor_produto, quantidade)
                         print('Produto cadastrado com sucesso')
@@ -103,9 +103,19 @@ def mani():
                         
 
                     case 7:
+                        #Histórico de compras
+                        os.system('cls')
+                        print('Histórico de compras')
+                        Loja.listarClientes()
+                        id = int(input('Insira o ID do cliente >> '))
+                        print(f'Histórico de compras do cliente')
+                        Loja.listar_compras_clietne(id_cliente=id, produto=produtos.carrinho, valor=produtos.carrinho)
+                        os.system('pause')
+                        mani()
+                    
+                    case 8:
                         print("Saindo...")
                         menu_inicial()
-
                     case _:
                         print("Opção Invalida")
                         mani()
@@ -145,78 +155,39 @@ def menu_cli():
                         os.system('cls')
                         # Adicionar produto ao carrinho
                         produtos.listarprodutos()
-                        print("=-=-=-=-=-")
-                        print('Qual produto você deseja adicionar ao carrinho?')
-                        print('1- Playstation 5')
-                        print('2- Xbox Series X')
-                        print('3- Controle Playstation 5')
-                        print('4- Controle Xbox')
-                        print('5- Guitarra')
-                        print('6- Violão')
-                        print('7- IPhone 14')
-                        print("=-=-=-=-=-")
-
-                        op = int(input(">> "))
-                        if op == 1:
-                            produtos.adicionar_carrinho(1, "Playstation 5", 5000, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
-
-                        elif op == 2:
-                            produtos.adicionar_carrinho(2, "Xbox Series X", 4500, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
+                        id_produto = int(input('Insira o ID do produto >> '))
+                        nome_produto = produtos.produtos[id_produto][0]
+                        valor_produto = produtos.produtos[id_produto][1]
+                        quantidade = int(input('Insira a quantidade >> '))
                         
-                        elif op == 3:
-                            produtos.adicionar_carrinho(3, "Controle Playstation 5", 500, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
-
-                        elif op == 4:
-                            produtos.adicionar_carrinho(4, "Controle Xbox", 450, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
-                        
-                        elif op == 5:
-                            produtos.adicionar_carrinho(5, "Guitarra", 1500, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
-                        
-                        elif op == 6:
-                            produtos.adicionar_carrinho(6, "Violão", 1000, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
-
-                        elif op == 7:
-                            produtos.adicionar_carrinho(7, "IPhone 14", 10000, 1)
-                            print('Produto adicionado ao carrinho com sucesso!')
-                            os.system('pause')
-                            menu_cli()
-                    
+                        produtos.adicionar_carrinho(id_produto, nome_produto, valor_produto, quantidade)
+                        print('Produto adicionado ao carrinho com sucesso!')
+                        os.system('pause')
+                        menu_cli()
 
 
                     case 3:
-                        # Listar Carrinho
+                        # Listar Carrinho com o cliente
                         os.system('cls')
-                        print('Lista de produtos')
+                        print('Lista de produtos no carrinho')
                         produtos.listarCarrinho()
                         os.system('pause')
                         menu_cli()
 
+                        
+
+                                    
                     case 4:
-                        # Finalizar Compra
-                        # somar os valores dos produtos
+                        #Finalziar compra adicionando produtos ao historico de compras de cada cliente
                         os.system('cls')
-                        print('Somar valores dos produtos')
-                        produtos.getValor_produto()
+                        print('Finalizar compra')
+                        Loja.listarClientes()
+                        id = int(input('Insira o ID do cliente >> '))
+                        Loja.cliente[id][4] = produtos.carrinho                                            
+                        print('Compra finalizada com sucesso!')
                         os.system('pause')
                         menu_cli()
+
 
                     case 5:
                         print("Saindo...")
