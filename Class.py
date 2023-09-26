@@ -25,23 +25,32 @@ class E_commerce:
         self.cnpj = cnpj # Atributo do cnpj da loja
         self.cliente = {}  # Lista para armazenar clientes
         self.cadastrarCliente(1, "Thiago", 123, 123, 123)
-
+        
     def login_cliente(self, id, senha):
         if id in self.cliente and self.cliente[id][1] == senha:
             return True
         return False
 
-    def cadastrarCliente(self, id, nome, senha, cpf, tel):
+    def cadastrarCliente(self, id, nome, senha, cpf, tel, carrinho_cli = {}):
         # !Dicionário para armazenar informações dos clientes (Agregação)
-        self.cliente[id] = [nome, senha, cpf, tel]
-    
+        self.cliente[id] = [nome, senha, cpf, tel, carrinho_cli]
+        
 
     def listarClientes(self):
         for chave, valor in self.cliente.items():
             #!Imprime informações dos clientes (Agregação)
              print(f'ID: {chave} - Nome: {valor[0]} - CPF: {valor[1]} - Telefone: {valor[2]}')
+
+    def listar_compras_clietne(self):
+        cont = 1
+        for chave, valor in self.cliente.items():
+            for chave2, valor2 in valor[4].items():
+                print(f'ID: {chave} - Nome: {valor[0]} - Compras do cliente: Produto:{valor2[0]} Valor: {valor2[1]}')
             
-    
+            cont += 1   
+            #!Imprime informações dos clientes (Agregação)
+
+
 # Classe Produtos
 class Produtos:
     def __init__(self, Id_produto, nome_produto, valor_produto, quantidade):
@@ -58,7 +67,6 @@ class Produtos:
         self.cadastrarProduto(5, "Guitarra", 1500, 10)
         self.cadastrarProduto(6, "Violão", 1000, 10)
         self.cadastrarProduto(7, "IPhone 14", 10000, 10)
-
 
     def listarprodutos(self):
         for chave, valor in self.produtos.items():
