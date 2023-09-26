@@ -109,7 +109,7 @@ def mani():
                         Loja.listarClientes()
                         id = int(input('Insira o ID do cliente >> '))
                         print(f'Histórico de compras do cliente')
-                        Loja.listar_compras_clietne(id_cliente=id, produto=produtos.carrinho, valor=produtos.carrinho)
+                        Loja.listar_compras_clietne()
                         os.system('pause')
                         mani()
                     
@@ -213,6 +213,7 @@ def menu_inicial():
             print('|2- logar como cliente           |')
             print('|3- Sair                         |')
             print("|________________________________|")
+
             op = int(input(">> "))
             try:
                 match op:
