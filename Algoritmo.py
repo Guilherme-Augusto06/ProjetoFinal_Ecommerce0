@@ -15,7 +15,7 @@ countID_produto = 7
 def menu_inicial(): # Menu inicial
     try:        
         print("|______________MENU______________|")
-        print("|Augusto's E-commerce            |")
+        print(f"      {Loja.getNome()}          ")
         print('|1- logar como administrador     |')
         print('|2- logar como cliente           |')
         print('|3- Sair                         |')
@@ -93,7 +93,7 @@ def menu_cli():
         # Menu do cliente
         os.system('cls')
         print("_________________MENU___________________")
-        print("|Augusto's E-commerce                  |")
+        print(f"           {Loja.getNome()}           ")
         print('|1- Listar produtos                    |')
         print('|2- Adicionar produto ao carrinho      |')
         print('|3- Listar carrinho                    |')
@@ -212,7 +212,7 @@ def mani():
         # Menu do administrador
         os.system('cls')
         print("_______________MENU_______________")
-        print("|Augusto's E-commerce            |")
+        print(f"       {Loja.getNome()}        ")
         print("|1- Cadastrar cliente            |")
         print("|2- Cadastrar produto            |")
         print("|3- Excluir produto              |")
@@ -224,6 +224,7 @@ def mani():
         print("|9- Listar administradores       |")
         print("|10- Histórico de compras/Cliente|")
         print("|11- Histórico de compras/Loja   |")
+        print("|12- Alterar funções da loja     |")
         print("|0- Sair                         |")
         print("|________________________________|")
         op = int(input(">> "))
@@ -348,9 +349,18 @@ def mani():
                     os.system('pause')
                     mani()
 
+
+                case 12:
+                    os.system('cls')
+                    funcoes_loja()  #* Usa a instância "Loja" para alterar funções da loja (associação)
+                    print("Abrir funções da loja")
+                    os.system('pause')
+                    
                 case 0:
                     print("Saindo...")
                     menu_inicial()
+                
+                 
                 case _:
                     print("Opção Invalida")
                     mani()
@@ -363,3 +373,58 @@ def mani():
         print("Valor Invalido")
         print(f"erro: {erro.__class__.__name__}")
         mani()
+
+def funcoes_loja():
+        os.system('cls')
+        print("_________________MENU___________________")
+        print(f"       {Loja.getNome()}               ")
+        print("|1- Listar informações da loja         |")
+        print('|2- Alterar nome da Loja               |')
+        print('|3- Alterar endereço                   |')
+        print('|4- Alterar o CNPJ                     |')
+        print('|5- Sair                               |')
+        print("|______________________________________|")
+        op = int(input(">> "))
+        try:
+            match op:
+                case 1:
+                    os.system('cls')
+                    Loja.listar_loja()  #* Usa a instância "Loja" para listar informações da loja (associação)
+                    os.system('pause')
+                    funcoes_loja()
+                case 2:
+                    os.system('cls')
+                    nome = input("Insira o novo nome da loja >> ")
+                    Loja.alterar_nome(nome)  #* Usa a instância "Loja" para alterar nome (associação)
+                    print('Nome alterado com sucesso!')
+                    os.system('pause')
+                    funcoes_loja()
+                
+                case 3:
+                    os.system('cls')
+                    endereco = input("Insira o novo endereço da loja >> ")
+                    Loja.alterar_endereco(endereco)  #* Usa a instância "Loja" para alterar endereço (associação)
+                    print('Endereço alterado com sucesso!')
+                    os.system('pause')
+                    funcoes_loja()
+
+                case 4:
+                    os.system('cls')
+                    cnpj = input("Insira o novo CNPJ da loja >> ")
+                    Loja.alterar_cnpj(cnpj)  #* Usa a instância "Loja" para alterar CNPJ (associação)
+                    print('CNPJ alterado com sucesso!')
+                    os.system('pause')
+                    funcoes_loja()
+
+                case 5:
+                    print("Saindo...")
+                    mani()
+
+                case _:
+                    print("Opção Invalida")
+                    funcoes_loja()
+        
+        except ValueError as erro:
+            print("Valor Invalido")
+            print(f"erro: {erro.__class__.__name__}")
+            funcoes_loja()
