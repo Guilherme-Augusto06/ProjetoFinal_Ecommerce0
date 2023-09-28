@@ -88,6 +88,10 @@ class E_commerce:
         self.nome = nome  # Atributo do nome da loja
         self.endereco = endereco # Atributo do endereço da loja
         self.cnpj = cnpj # Atributo do cnpj da loja
+    
+    def getNome(self):
+        return self.nome
+    
 
     def listar_loja(self):
         # Lista as informações da loja
